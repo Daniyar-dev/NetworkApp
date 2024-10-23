@@ -21,16 +21,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val pizzaList = listOf(
-            Pizza("С грибами", "Шампиньены, ветчина, сыр", 1000,R.drawable.pizza_img, "Пицца"),
-            Pizza("С сыром", "Помидоры, колбаса, сыр", 990,R.drawable.pizza_img, "Пицца"),
-            Pizza("С курицей", "Курица, зелень, сыр", 1210,R.drawable.pizza_img, "Французкая"),
-            Pizza("С грибами", "Шампиньены, ветчина, сыр", 1000,R.drawable.pizza_img, "Макдоналдс"),
-            Pizza("Филадельфия", "Зелень, Рис, Рыба", 990,R.drawable.sushi_1, "Суши"),
-            Pizza("Жареные", "Курица, ласось, сыр", 1210,R.drawable.sushi_2, "Суши")
-        )
-        val imgList = listOf(R.drawable.rectangle_38, R.drawable.rectangle_39__1_)
-        val categories = listOf("Пицца","Суши","Десерт","Фастфуд","Французкая","Грузинская","Теремок","Макдоналдс",)
+
+        val api = ApiService()
+        val imgList = api.getImages()
+        val categories = api.getCategories()
+        val pizzaList = api.getPizzaList()
 
         binding.promoRv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.promoRv.adapter = PromoRvAdapter(imgList)
@@ -41,7 +36,6 @@ class MainActivity : AppCompatActivity() {
         })
 
         binding.pizzaRv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
         binding.pizzaRv.adapter = PizzaRvAdapter(pizzaList)
     }
 }
